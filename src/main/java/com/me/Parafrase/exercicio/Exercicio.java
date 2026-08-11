@@ -21,6 +21,6 @@ public class Exercicio {
     @Column(name = "solucao")
     private String linkSolucao;
     @ManyToOne
-    @Column(name = "anotacao_id", nullable = false)
-    private Anotacao anotacao;
+    @JoinColumn(name = "anotacao_id", nullable = false)
+    private Anotacao anotacoes;
 }

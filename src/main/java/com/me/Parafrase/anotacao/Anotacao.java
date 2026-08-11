@@ -1,5 +1,7 @@
 package com.me.Parafrase.anotacao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.me.Parafrase.exercicio.Exercicio;
 import com.me.Parafrase.livro.Livro;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_anotacoes")
@@ -26,6 +29,9 @@ public class Anotacao {
     private LocalDate dataCadastro;
     @ManyToOne
     @JoinColumn(name = "livro_id", nullable = false)
-    private Livro livro;
+    private Livro livros;
+    @OneToMany(mappedBy = "anotacoes")
+    @JsonIgnore
+    private List<Exercicio> exercicios;
 
 }

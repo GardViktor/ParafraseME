@@ -1,9 +1,13 @@
 package com.me.Parafrase.livro;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.me.Parafrase.anotacao.Anotacao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_livros")
@@ -23,5 +27,8 @@ public class Livro {
     private Integer anoPublicacao;
     @Column(name = "qtd_paginas")
     private Integer numeroPaginas;
+    @OneToMany(mappedBy = "livros")
+    @JsonIgnore
+    private List<Anotacao> anotacoes;
 
 }
