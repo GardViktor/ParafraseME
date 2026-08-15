@@ -15,22 +15,22 @@ public class AnotacaoController {
     }
 
     @PostMapping("/criar")
-    public Anotacao criarAnotacao(@RequestBody Anotacao anotacao) {
+    public AnotacaoDTO criarAnotacao(@RequestBody AnotacaoDTO anotacao) {
         return anotacaoService.criarAnotacao(anotacao);
     }
 
     @GetMapping("/listar")
-    public List<Anotacao> listarAnotacao() {
+    public List<AnotacaoDTO> listarAnotacao() {
         return anotacaoService.listarAnotacao();
     }
 
     @GetMapping("/listar/{id}")
-    public Anotacao listarAnotacaoID(@PathVariable Long id) {
+    public AnotacaoDTO listarAnotacaoID(@PathVariable Long id) {
         return anotacaoService.listarAnotacaoID(id);
     }
 
     @PutMapping("/alterar/{id}")
-    public Anotacao alterarAnotacao(@PathVariable Long id, @RequestBody Anotacao anotacao) {
+    public AnotacaoDTO alterarAnotacao(@PathVariable Long id, @RequestBody AnotacaoDTO anotacao) {
         return anotacaoService.alterarAnotacao(id, anotacao);
     }
 
