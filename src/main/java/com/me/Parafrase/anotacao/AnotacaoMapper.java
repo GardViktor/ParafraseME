@@ -9,7 +9,7 @@ public class AnotacaoMapper {
 
         Anotacao anotacao = new Anotacao();
         anotacao.setId(anotacaoDTO.getId());
-        anotacao.setCapitulo(anotacao.getCapitulo());
+        anotacao.setCapitulo(anotacaoDTO.getCapitulo());
         anotacao.setPagina(anotacaoDTO.getPagina());
         anotacao.setMinhaAnotacao(anotacaoDTO.getMinhaAnotacao());
         anotacao.setDataCadastro(anotacaoDTO.getDataCadastro());
