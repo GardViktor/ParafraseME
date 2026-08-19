@@ -1,7 +1,11 @@
 package com.me.Parafrase.exercicio;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.classfile.instruction.ReturnInstruction;
 import java.util.List;
 
 @RestController
@@ -15,28 +19,53 @@ public class ExercicioController {
     }
 
     @PostMapping("/criar")
-    public ExercicioDTO criarExercicio(@RequestBody ExercicioDTO exercicioDTO) {
-        return exercicioService.criarExercicio(exercicioDTO);
+    public ResponseEntity<String> criarExercicio(@RequestBody ExercicioDTO exercicioDTO) {
+        ExercicioDTO exercicioCreate = exercicioService.criarExercicio(exercicioDTO);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Exercicio ID[" + exercicioCreate.getId() + "] Criado");
 
     }
 
     @GetMapping("/listar")
-    public List<ExercicioDTO> listarExercicio() {
-        return exercicioService.listarExercicio();
+    public ResponseEntity<List<ExercicioDTO>> listarExercicio() {
+        List<ExercicioDTO> exercicios = exercicioService.listarExercicio();
+        return ResponseEntity.ok(exercicios);
     }
 
     @GetMapping("/listar/{id}")
-    public ExercicioDTO listarExercicioID(@PathVariable Long id) {
-        return exercicioService.listarExercicioID(id);
+    public ResponseEntity<?> listarExercicioID(@PathVariable Long id) {
+        ExercicioDTO exercicioRead = exercicioService.listarExercicioID(id);
+        if (exercicioRead != null) {
+            return ResponseEntity.ok(exercicioRead);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Exercicio ID[" + exercicioRead.getId() + "] Não encontrado");
+        }
+
+
     }
 
     @PutMapping("/alterar/{id}")
-    public ExercicioDTO alterarExercicio(@PathVariable Long id, @RequestBody ExercicioDTO exercicioDTO) {
-        return exercicioService.alterarExercicio(id, exercicioDTO);
+    public ResponseEntity<?> alterarExercicio(@PathVariable Long id, @RequestBody ExercicioDTO exercicioDTO) {
+        ExercicioDTO exercicioUpdate = exercicioService.alterarExercicio(id, exercicioDTO);
+        if (exercicioUpdate != null) {
+            return ResponseEntity.ok(exercicioUpdate);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Exercicio ID[" + exercicioUpdate.getId() + "] Não encontrado");
+        }
     }
 
+
+
     @DeleteMapping("/deletar/{id}")
-    public void deletarExercicio(@PathVariable Long id) {
-        exercicioService.deletarExercicio(id);
+    public ResponseEntity<String> deletarExercicio(@PathVariable Long id) {
+        if(exercicioService.listarExercicioID(id) != null) {
+            exercicioService.deletarExercicio(id);
+            return ResponseEntity.ok("Exercicio ID[" + id +"] Deletado");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Exercicio ID[" + id +"] Não Encontrado");
+        }
     }
 }
