@@ -32,4 +32,9 @@ build/
 ### VS Code ###
 .vscode/
 
+### Environments ###
 .env
+
+### Database ###
+*.mv.db
+*.trace.db
