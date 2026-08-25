@@ -1,5 +1,8 @@
 package com.me.Parafrase.livro;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,33 +12,40 @@ import java.util.List;
 public class LivroController {
 
     private LivroService livroService;
-
     public LivroController(LivroService livroService) {
         this.livroService = livroService;
     }
-    @PostMapping("/criar")
-    public Livro criarLivro(@RequestBody Livro livro) {
-        return livroService.criarLivro(livro);
 
+    @PostMapping("/criar")
+    public ResponseEntity<String> criarLivro(@RequestBody LivroDTO livroDTO) {
+        LivroDTO livroCreate = livroService.criarLivro(livroDTO);
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body("Livro ID[" + livroCreate.getId() + "] Criado");
     }
+
     @GetMapping("/listar")
-    public List<Livro> listarLivro() {
+    public List<LivroDTO> listarLivro() {
         return livroService.listarLivro();
     }
 
     @GetMapping("/listar/{id}")
-    public Livro listarLivroID(@PathVariable Long id){
-        return livroService.listarLivroID(id);
+    public ResponseEntity<?> listarLivroID(@PathVariable Long id) {
+        LivroDTO livroRead = livroService.listarLivroID(id);
+        if (livroRead != null) {
+            return ResponseEntity.ok(livroRead);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Livro ID[" + livroRead.getId() + "] Não encontrado");
+        }
     }
 
     @PutMapping("/alterar/{id}")
-    public Livro atualizarLivro(@PathVariable Long id, @RequestBody Livro livroUpdate) {
+    public LivroDTO atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroUpdate) {
         return livroService.atualizarNinja(id, livroUpdate);
-
     }
+
     @DeleteMapping("/deletar/{id}")
     public void deletarLivro(@PathVariable Long id) {
         livroService.deletarLivro(id);
     }
-
 }
