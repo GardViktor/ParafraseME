@@ -1,43 +1,51 @@
 package com.me.Parafrase.livro;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LivroService {
 
    private LivroRepository livroRepository;
-    public LivroService(LivroRepository livroRepository) {
+   private LivroMapper livroMapper;
+    public LivroService(LivroRepository livroRepository, LivroMapper livroMapper) {
         this.livroRepository = livroRepository;
+        this.livroMapper = livroMapper;
     }
-    //Create
-    public Livro criarLivro(Livro livro) {
-        return livroRepository.save(livro);
-    }
-    //Read
-    public List<Livro> listarLivro() {
-        return livroRepository.findAll();
-    }
-    //ReadID
-    public Livro listarLivroID(Long id) {
-        Optional<Livro> livro = livroRepository.findById(id);
-        return livro.orElse(null);
 
+    public LivroDTO criarLivro(LivroDTO livroDTO) {
+        Livro livro = livroMapper.map(livroDTO);
+        livro = livroRepository.save(livro);
+        return livroMapper.map(livro);
     }
-    //Update
-    public Livro atualizarNinja(Long id, Livro livroUpdate) {
-        if (livroRepository.existsById(id)) {
+
+    public List<LivroDTO> listarLivro() {
+        List<Livro> livros = livroRepository.findAll();
+        return livros.stream()
+                .map(livroMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    public LivroDTO listarLivroID(Long id) {
+        Optional<Livro> livro = livroRepository.findById(id);
+        return livro.map(livroMapper::map).orElse(null);
+    }
+
+    public LivroDTO atualizarNinja(Long id, LivroDTO livroDTO) {
+        Optional<Livro> livro = livroRepository.findById(id);
+        if (livro.isPresent()) {
+            Livro livroUpdate = livroMapper.map(livroDTO);
             livroUpdate.setId(id);
-            return livroRepository.save(livroUpdate);
+            Livro livroNew = livroRepository.save(livroUpdate);
+            return livroMapper.map(livroNew);
         }
         return null;
     }
-    //Delete
+
     public void deletarLivro(Long id) {
         livroRepository.deleteById(id);
     }
-
 }
