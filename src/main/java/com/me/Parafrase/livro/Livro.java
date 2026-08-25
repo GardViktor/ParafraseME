@@ -11,9 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_livros")
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Livro {
 
     @Id
@@ -21,8 +21,8 @@ public class Livro {
     private Long id;
     @Column(nullable = false, unique = true)
     private String titulo;
-    @Column(nullable = false)
     private String autor;
+    private String editora;
     @Column(name = "publicacao")
     private Integer anoPublicacao;
     @Column(name = "qtd_paginas")
@@ -30,5 +30,4 @@ public class Livro {
     @OneToMany(mappedBy = "livros")
     @JsonIgnore
     private List<Anotacao> anotacoes;
-
 }

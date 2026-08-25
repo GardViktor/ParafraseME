@@ -11,7 +11,6 @@ public class ExercicioService {
     
     private ExercicioRepository exercicioRepository;
     private ExercicioMapper exercicioMapper;
-
     public ExercicioService(ExercicioRepository exercicioRepository, ExercicioMapper exercicioMapper) {
         this.exercicioRepository = exercicioRepository;
         this.exercicioMapper = exercicioMapper;
@@ -21,7 +20,6 @@ public class ExercicioService {
         Exercicio exercicio = exercicioMapper.map(exercicioDTO);
         exercicio = exercicioRepository.save(exercicio);
         return exercicioMapper.map(exercicio);
-
     }
 
     public List<ExercicioDTO> listarExercicio() {
@@ -29,7 +27,6 @@ public class ExercicioService {
         return  exercicios.stream()
                 .map(exercicioMapper::map)
                 .collect(Collectors.toList());
-
     }
 
     public ExercicioDTO listarExercicioID(Long id) {
