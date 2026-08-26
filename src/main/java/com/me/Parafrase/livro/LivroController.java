@@ -1,7 +1,6 @@
 package com.me.Parafrase.livro;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +23,9 @@ public class LivroController {
     }
 
     @GetMapping("/listar")
-    public List<LivroDTO> listarLivro() {
-        return livroService.listarLivro();
+    public ResponseEntity<List<LivroDTO>> listarLivro() {
+        List<LivroDTO> livros = livroService.listarLivro();
+        return ResponseEntity.ok(livros);
     }
 
     @GetMapping("/listar/{id}")
@@ -35,17 +35,29 @@ public class LivroController {
             return ResponseEntity.ok(livroRead);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Livro ID[" + livroRead.getId() + "] Não encontrado");
+                    .body("Livro ID[" + id + "] Não encontrado");
         }
     }
 
     @PutMapping("/alterar/{id}")
-    public LivroDTO atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroUpdate) {
-        return livroService.atualizarNinja(id, livroUpdate);
+    public ResponseEntity<?> atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroDTO) {
+        LivroDTO livroUpdate = livroService.atualizarNinja(id, livroDTO);
+        if (livroUpdate != null) {
+            return ResponseEntity.ok(livroUpdate);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Livro ID[" + id + "] Não encontrado");
+        }
     }
 
     @DeleteMapping("/deletar/{id}")
-    public void deletarLivro(@PathVariable Long id) {
-        livroService.deletarLivro(id);
+    public ResponseEntity<String> deletarLivro(@PathVariable Long id) {
+        if (livroService.listarLivroID(id) != null) {
+            livroService.deletarLivro(id);
+            return ResponseEntity.ok("Livro ID[" + id + "] Deletado");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Livro ID[" + id + "] Não encontrado");
+        }
     }
 }

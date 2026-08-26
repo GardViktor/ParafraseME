@@ -35,7 +35,7 @@ public class ExercicioController {
             return ResponseEntity.ok(exercicioRead);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Exercicio ID[" + exercicioRead.getId() + "] Não encontrado");
+                    .body("Exercicio ID[" + id + "] Não encontrado");
         }
     }
 
@@ -46,7 +46,7 @@ public class ExercicioController {
             return ResponseEntity.ok(exercicioUpdate);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("Exercicio ID[" + exercicioUpdate.getId() + "] Não encontrado");
+                .body("Exercicio ID[" + id + "] Não encontrado");
         }
     }
 
@@ -54,10 +54,10 @@ public class ExercicioController {
     public ResponseEntity<String> deletarExercicio(@PathVariable Long id) {
         if(exercicioService.listarExercicioID(id) != null) {
             exercicioService.deletarExercicio(id);
-            return ResponseEntity.ok("Exercicio ID[" + id +"] Deletado");
+            return ResponseEntity.ok("Exercicio ID[" + id + "] Deletado");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Exercicio ID[" + id +"] Não Encontrado");
+                    .body("Exercicio ID[" + id + "] Não encontrado");
         }
     }
 }
