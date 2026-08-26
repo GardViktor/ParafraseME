@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 @Service
 public class ExercicioService {
     
-    private ExercicioRepository exercicioRepository;
-    private ExercicioMapper exercicioMapper;
+    private final ExercicioRepository exercicioRepository;
+    private final ExercicioMapper exercicioMapper;
     public ExercicioService(ExercicioRepository exercicioRepository, ExercicioMapper exercicioMapper) {
         this.exercicioRepository = exercicioRepository;
         this.exercicioMapper = exercicioMapper;

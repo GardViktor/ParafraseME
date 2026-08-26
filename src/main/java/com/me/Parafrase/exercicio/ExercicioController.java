@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/exercicios")
 public class ExercicioController {
 
-    private ExercicioService exercicioService;
+    private final ExercicioService exercicioService;
     public ExercicioController(ExercicioService exercicioService) {
         this.exercicioService = exercicioService;
     }

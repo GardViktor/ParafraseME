@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/anotacoes")
 public class AnotacaoController {
 
-    private AnotacaoService anotacaoService;
+    private final AnotacaoService anotacaoService;
     public AnotacaoController(AnotacaoService anotacaoService) {
         this.anotacaoService = anotacaoService;
     }

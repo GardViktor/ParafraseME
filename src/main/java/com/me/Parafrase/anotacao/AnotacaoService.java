@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 @Service
 public class AnotacaoService {
 
-    private AnotacaoRepository anotacaoRepository;
-    private AnotacaoMapper anotacaoMapper;
+    private final AnotacaoRepository anotacaoRepository;
+    private final AnotacaoMapper anotacaoMapper;
     public AnotacaoService(AnotacaoRepository anotacaoRepository, AnotacaoMapper anotacaoMapper) {
         this.anotacaoRepository = anotacaoRepository;
         this.anotacaoMapper = anotacaoMapper;
