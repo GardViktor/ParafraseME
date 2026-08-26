@@ -11,7 +11,6 @@ import java.util.List;
 public class ExercicioController {
 
     private ExercicioService exercicioService;
-
     public ExercicioController(ExercicioService exercicioService) {
         this.exercicioService = exercicioService;
     }
@@ -21,7 +20,6 @@ public class ExercicioController {
         ExercicioDTO exercicioCreate = exercicioService.criarExercicio(exercicioDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Exercicio ID[" + exercicioCreate.getId() + "] Criado");
-
     }
 
     @GetMapping("/listar")
@@ -39,8 +37,6 @@ public class ExercicioController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Exercicio ID[" + exercicioRead.getId() + "] Não encontrado");
         }
-
-
     }
 
     @PutMapping("/alterar/{id}")
@@ -53,8 +49,6 @@ public class ExercicioController {
                 .body("Exercicio ID[" + exercicioUpdate.getId() + "] Não encontrado");
         }
     }
-
-
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarExercicio(@PathVariable Long id) {

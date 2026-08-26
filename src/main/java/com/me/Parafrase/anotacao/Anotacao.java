@@ -33,5 +33,4 @@ public class Anotacao {
     @OneToMany(mappedBy = "anotacoes")
     @JsonIgnore
     private List<Exercicio> exercicios;
-
 }

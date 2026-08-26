@@ -42,6 +42,7 @@ public class ExercicioService {
             Exercicio exercicioNew = exercicioRepository.save(exercicioUpdate);
             return exercicioMapper.map(exercicioNew);
         }
+
         return null;
     }
 

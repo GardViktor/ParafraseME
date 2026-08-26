@@ -11,7 +11,6 @@ public class AnotacaoService {
 
     private AnotacaoRepository anotacaoRepository;
     private AnotacaoMapper anotacaoMapper;
-
     public AnotacaoService(AnotacaoRepository anotacaoRepository, AnotacaoMapper anotacaoMapper) {
         this.anotacaoRepository = anotacaoRepository;
         this.anotacaoMapper = anotacaoMapper;
@@ -21,7 +20,6 @@ public class AnotacaoService {
         Anotacao anotacao = anotacaoMapper.map(anotacaoDTO);
         anotacao = anotacaoRepository.save(anotacao);
         return anotacaoMapper.map(anotacao);
-
     }
 
     public List<AnotacaoDTO> listarAnotacao() {
@@ -29,7 +27,6 @@ public class AnotacaoService {
         return anotacaos.stream()
                 .map(anotacaoMapper::map)
                 .collect(Collectors.toList());
-
     }
 
     public AnotacaoDTO listarAnotacaoID(Long id) {
@@ -45,14 +42,11 @@ public class AnotacaoService {
             Anotacao anotacaoNew = anotacaoRepository.save(anotacaoUpdate);
             return  anotacaoMapper.map(anotacaoNew);
         }
-        return null;
 
+        return null;
     }
 
     public void deletarAnotacao(Long id) {
         anotacaoRepository.deleteById(id);
     }
-
-
-
 }

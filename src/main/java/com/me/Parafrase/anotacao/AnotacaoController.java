@@ -9,7 +9,6 @@ import java.util.List;
 public class AnotacaoController {
 
     private AnotacaoService anotacaoService;
-
     public AnotacaoController(AnotacaoService anotacaoService) {
         this.anotacaoService = anotacaoService;
     }
@@ -38,7 +37,4 @@ public class AnotacaoController {
     public void  deletarAnotacao(@PathVariable Long id) {
         anotacaoService.deletarAnotacao(id);
     }
-
-
-
 }

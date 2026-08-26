@@ -15,5 +15,4 @@ public class ExercicioDTO {
     private boolean resolvido;
     private String linkSolucao;
     private Anotacao anotacoes;
-
 }

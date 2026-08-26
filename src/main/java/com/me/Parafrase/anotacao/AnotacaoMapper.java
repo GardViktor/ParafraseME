@@ -17,7 +17,6 @@ public class AnotacaoMapper {
         anotacao.setExercicios(anotacaoDTO.getExercicios());
 
         return anotacao;
-
     }
 
     public AnotacaoDTO map(Anotacao anotacao) {
@@ -32,7 +31,5 @@ public class AnotacaoMapper {
         anotacaoDTO.setExercicios(anotacao.getExercicios());
 
         return anotacaoDTO;
-
     }
-
 }

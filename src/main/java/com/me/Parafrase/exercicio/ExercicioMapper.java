@@ -14,7 +14,6 @@ public class ExercicioMapper {
         exercicio.setAnotacoes(exercicioDTO.getAnotacoes());
 
         return exercicio;
-
     }
 
     public ExercicioDTO map(Exercicio exercicio) {

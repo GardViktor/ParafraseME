@@ -21,5 +21,4 @@ public class AnotacaoDTO {
     private LocalDate dataCadastro;
     private Livro livros;
     private List<Exercicio> exercicios;
-
 }
