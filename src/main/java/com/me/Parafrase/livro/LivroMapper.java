@@ -8,6 +8,7 @@ public class LivroMapper {
     public Livro map(LivroDTO livroDTO) {
         Livro livro = new Livro();
         livro.setId(livroDTO.getId());
+        livro.setImgUrl(livroDTO.getImgUrl());
         livro.setTitulo(livroDTO.getTitulo());
         livro.setAutor(livroDTO.getAutor());
         livro.setEditora(livroDTO.getEditora());
@@ -20,6 +21,7 @@ public class LivroMapper {
     public LivroDTO map(Livro livro) {
         LivroDTO livroDTO = new LivroDTO();
         livroDTO.setId(livro.getId());
+        livroDTO.setImgUrl(livro.getImgUrl());
         livroDTO.setTitulo(livro.getTitulo());
         livroDTO.setAutor(livro.getAutor());
         livroDTO.setEditora(livro.getEditora());

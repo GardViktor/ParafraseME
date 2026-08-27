@@ -13,6 +13,7 @@ import java.util.List;
 public class LivroDTO {
 
     private Long id;
+    private String imgUrl;
     private String titulo;
     private String autor;
     private String editora;
