@@ -1,5 +1,6 @@
 package com.me.Parafrase.exercicio;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.me.Parafrase.anotacao.Anotacao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,5 +23,6 @@ public class Exercicio {
     private String linkSolucao;
     @ManyToOne
     @JoinColumn(name = "anotacao_id", nullable = false)
+    @JsonIgnore
     private Anotacao anotacoes;
 }
