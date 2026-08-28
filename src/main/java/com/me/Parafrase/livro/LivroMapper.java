@@ -14,6 +14,7 @@ public class LivroMapper {
         livro.setEditora(livroDTO.getEditora());
         livro.setAnoPublicacao(livroDTO.getAnoPublicacao());
         livro.setNumeroPaginas(livroDTO.getNumeroPaginas());
+        livro.setAnotacoes(livroDTO.getAnotacoes());
 
         return livro;
     }
@@ -27,6 +28,7 @@ public class LivroMapper {
         livroDTO.setEditora(livro.getEditora());
         livroDTO.setAnoPublicacao(livro.getAnoPublicacao());
         livroDTO.setNumeroPaginas(livro.getNumeroPaginas());
+        livroDTO.setAnotacoes(livro.getAnotacoes());
 
         return livroDTO;
     }

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Livro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        :root {
+            --gb-panel: #ffffff;
+            --gb-border-dark: #3b3b6d;
+            --gb-border-light: #8c8cde;
+            --gb-blue: #3050b0;
+            --gb-blue-dark: #1c2f70;
+            --gb-text: #2b2b2b;
+            --gb-red: #d03838;
+            --gb-yellow: #f8d030;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--gb-blue-dark);
+            background-image:
+                repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 2px, transparent 2px, transparent 4px);
+            font-family: 'Press Start 2P', 'Courier New', monospace;
+            color: var(--gb-text);
+            margin: 0;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--gb-panel);
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0 var(--gb-border-dark);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--gb-panel);
+            border: 4px solid var(--gb-border-dark);
+            outline: 3px solid var(--gb-border-light);
+            outline-offset: -8px;
+            border-radius: 2px;
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.45);
+            padding: 24px;
+        }
+
+        .mensagem {
+            font-size: 9px;
+            color: var(--gb-blue-dark);
+            background: var(--gb-yellow);
+            border: 2px solid var(--gb-border-dark);
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 2px;
+        }
+
+        label {
+            font-size: 9px;
+            color: var(--gb-blue-dark);
+            text-shadow: 1px 1px 0 var(--gb-border-light);
+            margin: 14px 0 6px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            font-family: 'Press Start 2P', 'Courier New', monospace;
+            font-size: 10px;
+            padding: 10px 8px;
+            border: 2px solid var(--gb-border-dark);
+            border-radius: 2px;
+            background: #f4f4ff;
+            color: var(--gb-text);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--gb-blue);
+            background: #ffffff;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            color: var(--gb-panel);
+            background: var(--gb-blue);
+            border: 2px solid var(--gb-border-dark);
+            padding: 12px;
+            border-radius: 2px;
+            box-shadow: 3px 3px 0 var(--gb-border-dark);
+            cursor: pointer;
+            margin-top: 24px;
+            transition: transform 0.05s;
+        }
+
+        button:hover {
+            background: var(--gb-red);
+        }
+
+        button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 var(--gb-border-dark);
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            text-decoration: none;
+            text-align: center;
+            color: var(--gb-panel);
+            background: var(--gb-blue);
+            border: 2px solid var(--gb-border-dark);
+            padding: 12px 16px;
+            border-radius: 2px;
+            box-shadow: 3px 3px 0 var(--gb-border-dark);
+            margin-top: 20px;
+            transition: transform 0.05s;
+        }
+
+        a:hover {
+            background: var(--gb-red);
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0 var(--gb-border-dark);
+        }
+
+        a:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Editar Livro</h1>
+<div class="form-container">
+    <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+    <form th:action="@{/livros/ui/salvar}" th:object="${livro}" method="post">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" th:field="*{titulo}" required />
+
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" th:field="*{autor}" required />
+
+        <label for="editora">Editora:</label>
+        <input type="text" id="editora" th:field="*{editora}" />
+
+        <label for="imgUrl">URL da Imagem:</label>
+        <input type="text" id="imgUrl" th:field="*{imgUrl}" />
+
+        <label for="anoPublicacao">Ano de Publicação:</label>
+        <input type="number" id="anoPublicacao" th:field="*{anoPublicacao}" />
+
+        <label for="numeroPaginas">Número de Páginas:</label>
+        <input type="number" id="numeroPaginas" th:field="*{numeroPaginas}" />
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    <a th:href="@{/livros/ui/listar}">Voltar para a lista de livros</a>
+</div>
+</body>
+</html>
