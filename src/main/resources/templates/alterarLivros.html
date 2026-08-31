@@ -156,7 +156,9 @@
 <h1>Editar Livro</h1>
 <div class="form-container">
     <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
-    <form th:action="@{/livros/ui/salvar}" th:object="${livro}" method="post">
+    <form th:action="@{/livros/ui/alterar/{id}(id=${livro.id})}" th:object="${livro}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
         <label for="titulo">Título:</label>
         <input type="text" id="titulo" th:field="*{titulo}" required />
 
@@ -181,3 +183,4 @@
 </div>
 </body>
 </html>
+
