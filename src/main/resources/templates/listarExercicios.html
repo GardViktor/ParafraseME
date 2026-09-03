@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela de Exercicios</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+            :root {
+                --gb-panel: #ffffff;
+                --gb-border-dark: #3b3b6d;
+                --gb-border-light: #8c8cde;
+                --gb-blue: #3050b0;
+                --gb-blue-dark: #1c2f70;
+                --gb-text: #2b2b2b;
+                --gb-red: #d03838;
+                --gb-yellow: #f8d030;
+                --cols: 0.4fr 1.1fr 1.8fr 1.2fr 1.1fr 0.9fr 0.7fr 1.6fr;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                background: var(--gb-blue-dark);
+                background-image:
+                    repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 2px, transparent 2px, transparent 4px);
+                font-family: 'Press Start 2P', 'Courier New', monospace;
+                color: var(--gb-text);
+                margin: 0;
+                padding: 40px 24px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            h1 {
+                color: var(--gb-panel);
+                font-size: 16px;
+                letter-spacing: 2px;
+                text-shadow: 3px 3px 0 var(--gb-border-dark);
+                margin-bottom: 24px;
+                text-align: center;
+            }
+
+            /* Grid contínuo: thead/tbody/tr somem do layout (display: contents),
+               sobrando só th/td como itens do mesmo grid, sempre alinhados. */
+            table {
+                display: grid;
+                grid-template-columns: var(--cols);
+                width: 100%;
+                max-width: 1300px;
+                background: var(--gb-panel);
+                border: 4px solid var(--gb-border-dark);
+                outline: 3px solid var(--gb-border-light);
+                outline-offset: -8px;
+                border-radius: 2px;
+                box-shadow: 6px 6px 0 rgba(0,0,0,0.45);
+                border-collapse: collapse;
+                padding: 6px;
+            }
+
+            thead,
+            tbody,
+            tr {
+                display: contents;
+            }
+
+            th {
+                font-size: 9px;
+                color: var(--gb-panel);
+                background: var(--gb-blue);
+                padding: 10px 8px;
+                text-align: left;
+                text-shadow: 1px 1px 0 var(--gb-border-dark);
+            }
+
+            /* Cabeçalho "Ações" centralizado, alinhado com os botões abaixo */
+            th:last-child {
+                text-align: center;
+            }
+
+            td {
+                font-size: 9px;
+                line-height: 1.6;
+                padding: 12px 8px;
+                display: flex;
+                align-items: center;
+                word-break: break-word;
+                border-bottom: 2px dashed var(--gb-border-light);
+            }
+
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+            tbody tr:hover td {
+                background: var(--gb-yellow);
+            }
+
+            td img {
+                width: 72px;
+                height: 72px;
+                object-fit: cover;
+                image-rendering: pixelated;
+                border: 2px solid var(--gb-border-dark);
+                display: block;
+            }
+
+            /* Célula de ações: botões lado a lado e centralizados, quebrando linha se faltar espaço */
+            td:last-child {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Links de ação como "botões" de comando do menu */
+            td a {
+                display: inline-block;
+                font-family: 'Press Start 2P', monospace;
+                font-size: 8px;
+                text-decoration: none;
+                white-space: nowrap;
+                color: var(--gb-panel);
+                background: var(--gb-blue);
+                border: 2px solid var(--gb-border-dark);
+                padding: 6px 8px;
+                border-radius: 2px;
+                box-shadow: 2px 2px 0 var(--gb-border-dark);
+                transition: transform 0.05s;
+            }
+
+            td a:hover {
+                background: var(--gb-red);
+                transform: translate(1px, 1px);
+                box-shadow: 1px 1px 0 var(--gb-border-dark);
+            }
+
+            td a:active {
+                transform: translate(2px, 2px);
+                box-shadow: none;
+            }
+
+            /* Responsivo: vira "ficha" empilhada em telas menores */
+            @media (max-width: 800px) {
+                table {
+                    display: block;
+                    border: none;
+                    outline: none;
+                    box-shadow: none;
+                    background: transparent;
+                    padding: 0;
+                }
+
+                thead {
+                    display: none;
+                }
+
+                tbody {
+                    display: block;
+                }
+
+                tbody tr {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 4px;
+                    background: var(--gb-panel);
+                    border: 3px solid var(--gb-border-dark);
+                    outline: 2px solid var(--gb-border-light);
+                    outline-offset: -6px;
+                    border-radius: 2px;
+                    margin-bottom: 14px;
+                    padding: 12px;
+                    box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+                }
+
+                td {
+                    width: 100%;
+                    padding: 4px 0;
+                    border-bottom: none;
+                }
+            }
+            .btn-adicionar {
+           display: inline-block;
+           font-family: 'Press Start 2P', monospace;
+           font-size: 10px;
+           text-decoration: none;
+           color: var(--gb-panel);
+           background: var(--gb-blue);
+           border: 2px solid var(--gb-border-dark);
+           padding: 12px 18px;
+           border-radius: 2px;
+           box-shadow: 3px 3px 0 var(--gb-border-dark);
+           margin-bottom: 24px;
+           transition: transform 0.05s;
+       }
+
+       .btn-adicionar:hover {
+           background: var(--gb-red);
+           transform: translate(1px, 1px);
+           box-shadow: 2px 2px 0 var(--gb-border-dark);
+       }
+
+       .btn-adicionar:active {
+           transform: translate(3px, 3px);
+           box-shadow: none;
+       }
+    </style>
+</head>
+<body>
+<h1>Lista de Exercicios</h1>
+<a class="btn-adicionar" th:href="@{/exercicios/ui/adicionar}">Adicionar Novo Exercicio</a>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Enunciado</th>
+        <th>Resolvido</th>
+        <th>Solução</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="exercicio: ${exercicios}">
+        <td th:text="${exercicio.id}"></td>
+        <td th:text="${exercicio.enunciado}"></td>
+        <td th:text="${exercicio.resolvido}"></td>
+        <td th:text="${exercicio.linkSolucao}"></td>
+        <td>
+            <a th:href="@{/exercicios/ui/listar/{id}(id=${exercicio.id})}">Detalhes</a>
+            <a th:href="@{/exercicios/ui/alterar/{id}(id=${exercicio.id})}">Alterar</a>
+            <a th:href="@{/exercicios/ui/deletar/{id}(id=${exercicio.id})}">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

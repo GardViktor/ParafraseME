@@ -40,8 +40,8 @@ public class ExercicioController {
     }
 
     @PutMapping("/alterar/{id}")
-    public ResponseEntity<?> alterarExercicio(@PathVariable Long id, @RequestBody ExercicioDTO exercicioDTO) {
-        ExercicioDTO exercicioUpdate = exercicioService.alterarExercicio(id, exercicioDTO);
+    public ResponseEntity<?> atualizarExercicio(@PathVariable Long id, @RequestBody ExercicioDTO exercicioDTO) {
+        ExercicioDTO exercicioUpdate = exercicioService.atualizarExercicio(id, exercicioDTO);
         if (exercicioUpdate != null) {
             return ResponseEntity.ok(exercicioUpdate);
         } else {

@@ -41,7 +41,7 @@ public class LivroController {
 
     @PutMapping("/alterar/{id}")
     public ResponseEntity<?> atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroDTO) {
-        LivroDTO livroUpdate = livroService.atualizarNinja(id, livroDTO);
+        LivroDTO livroUpdate = livroService.atualizarLivro(id, livroDTO);
         if (livroUpdate != null) {
             return ResponseEntity.ok(livroUpdate);
         } else {

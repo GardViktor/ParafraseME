@@ -34,7 +34,7 @@ public class ExercicioService {
         return exercicio.map(exercicioMapper::map).orElse(null);
     }
 
-    public ExercicioDTO alterarExercicio(Long id, ExercicioDTO exercicioDTO) {
+    public ExercicioDTO atualizarExercicio(Long id, ExercicioDTO exercicioDTO) {
         Optional<Exercicio> exercicio = exercicioRepository.findById(id);
         if (exercicio.isPresent()) {
             Exercicio exercicioUpdate = exercicioMapper.map(exercicioDTO);

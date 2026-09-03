@@ -34,7 +34,7 @@ public class LivroService {
         return livro.map(livroMapper::map).orElse(null);
     }
 
-    public LivroDTO atualizarNinja(Long id, LivroDTO livroDTO) {
+    public LivroDTO atualizarLivro(Long id, LivroDTO livroDTO) {
         Optional<Livro> livro = livroRepository.findById(id);
         if (livro.isPresent()) {
             Livro livroUpdate = livroMapper.map(livroDTO);

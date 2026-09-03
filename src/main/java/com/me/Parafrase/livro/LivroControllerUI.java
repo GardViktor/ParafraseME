@@ -28,11 +28,11 @@ public class LivroControllerUI {
     public String listarLivroID(@PathVariable Long id, Model model) {
         LivroDTO livroRead = livroService.listarLivroID(id);
         if (livroRead != null) {
-            model.addAttribute("livro", livroRead);      // singular, igual ao template
-            return "detalhesLivros.html";                     // sem .html
+            model.addAttribute("livro", livroRead);
+            return "detalhesLivros";
         } else {
             model.addAttribute("mensagem", "Livro não encontrado");
-            return "redirect:/livros/ui/listar";          // evita quebrar por falta de "livros" na listagem
+            return "redirect:/livros/ui/listar";
         }
     }
 
@@ -49,7 +49,6 @@ public class LivroControllerUI {
         return "redirect:/livros/ui/listar";
     }
 
-    // Salva a alteração
     @PostMapping("/alterar/{id}")
     public String atualizarLivro(
             @PathVariable Long id,
@@ -57,7 +56,7 @@ public class LivroControllerUI {
             RedirectAttributes redirectAttributes) {
 
         LivroDTO livroAtualizado =
-                livroService.atualizarNinja(id, livroDTO);
+                livroService.atualizarLivro(id, livroDTO);
 
         if (livroAtualizado != null) {
 
