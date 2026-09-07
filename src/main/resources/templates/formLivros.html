@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Adicionar Livro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Adicionar Novo Livro</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -78,7 +80,8 @@
         input {
             width: 100%;
             font-family: 'Press Start 2P', 'Courier New', monospace;
-            font-size: 10px;
+            /* 16px evita o zoom automático do Safari/iOS ao focar o campo */
+            font-size: 16px;
             padding: 10px 8px;
             border: 2px solid var(--gb-border-dark);
             border-radius: 2px;
@@ -147,6 +150,14 @@
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 24px 12px;
+            }
+
+            h1 {
+                font-size: 13px;
+            }
+
             .form-container {
                 padding: 18px;
             }

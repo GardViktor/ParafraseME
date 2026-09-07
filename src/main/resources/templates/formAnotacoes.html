@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Adicionar Novo Exercício</title>
+    <title>Adicionar Nova Anotação</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -77,7 +77,8 @@
             display: block;
         }
 
-        input {
+        input,
+        textarea {
             width: 100%;
             font-family: 'Press Start 2P', 'Courier New', monospace;
             /* 16px evita o zoom automático do Safari/iOS ao focar o campo */
@@ -89,7 +90,14 @@
             color: var(--gb-text);
         }
 
-        input:focus {
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+            line-height: 1.5;
+        }
+
+        input:focus,
+        textarea:focus {
             outline: none;
             border-color: var(--gb-blue);
             background: #ffffff;
@@ -165,21 +173,19 @@
     </style>
 </head>
 <body>
-<h1>Adicionar Novo Exercício</h1>
+<h1>Adicionar Nova Anotação</h1>
 <div class="form-container">
     <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
-    <form th:action="@{/exercicios/ui/salvar}" th:object="${exercicio}" method="post">
-        <label for="enunciado">Enunciado:</label>
-        <input type="text" id="enunciado" th:field="*{enunciado}" required />
-        <label for="resolvido">Resolvido:</label>
-        <input type="text" id="resolvido" th:field="*{resolvido}" required />
-        <label for="linksolucao">Solução:</label>
-        <input type="text" id="linksolucao" th:field="*{linkSolucao}" />
-        <label for="anotacoes">Anotação:</label>
-        <input type="text" id="anotacoes" th:field="*{anotacoes}" />
-        <button type="submit">Cadastrar Exercício</button>
+    <form th:action="@{/anotacoes/ui/salvar}" th:object="${anotacao}" method="post">
+        <label for="capitulo">Capítulo:</label>
+        <input type="text" id="capitulo" th:field="*{capitulo}" required />
+        <label for="pagina">Página:</label>
+        <input type="number" id="pagina" th:field="*{pagina}" />
+        <label for="minhaAnotacao">Anotação:</label>
+        <textarea id="minhaAnotacao" th:field="*{minhaAnotacao}" required></textarea>
+        <button type="submit">Cadastrar Anotação</button>
     </form>
-    <a th:href="@{/exercicios/ui/listar}">Voltar para a lista de exercícios</a>
+    <a th:href="@{/anotacoes/ui/listar}">Voltar para a lista de anotações</a>
 </div>
 </body>
 </html>
