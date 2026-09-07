@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tabela de Livros</title>
+    <title>Tabela de Anotações</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -16,8 +16,8 @@
             --gb-text: #2b2b2b;
             --gb-red: #d03838;
             --gb-yellow: #f8d030;
-            /* 8 colunas — já batia com o número de <td> de cada linha, mantido */
-            --cols: 0.4fr 0.8fr 1.8fr 1.2fr 1.1fr 0.9fr 0.7fr 1.6fr;
+            /* 6 colunas — tem que bater exatamente com o número de <td> de cada linha */
+            --cols: 0.4fr 1.1fr 0.8fr 2.2fr 1.1fr 1.6fr;
         }
 
         * {
@@ -130,8 +130,8 @@
         }
 
         td img {
-            width: 56px;
-            height: 56px;
+            width: 72px;
+            height: 72px;
             object-fit: cover;
             image-rendering: pixelated;
             border: 2px solid var(--gb-border-dark);
@@ -217,11 +217,6 @@
                 box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
             }
 
-            /* A capa do livro em destaque no topo da ficha, maior e centralizada */
-            tbody tr {
-                position: relative;
-            }
-
             td {
                 width: 100%;
                 padding: 0;
@@ -239,19 +234,6 @@
                 text-shadow: none;
             }
 
-            td[data-label="Imagem"] {
-                align-items: center;
-            }
-
-            td[data-label="Imagem"]::before {
-                align-self: flex-start;
-            }
-
-            td[data-label="Imagem"] img {
-                width: 96px;
-                height: 96px;
-            }
-
             td:last-child {
                 justify-content: flex-start;
                 padding-top: 4px;
@@ -265,38 +247,34 @@
     </style>
 </head>
 <body>
-<h1>Lista de Livros</h1>
-<a class="btn-adicionar" th:href="@{/livros/ui/adicionar}">Adicionar Novo Livro</a>
+<h1>Lista de Anotações</h1>
+<a class="btn-adicionar" th:href="@{/anotacoes/ui/adicionar}">Adicionar Nova Anotação</a>
 <table>
     <thead>
     <tr>
         <th>Id</th>
-        <th>Imagem</th>
-        <th>Título</th>
-        <th>Autor</th>
-        <th>Editora</th>
-        <th>Publicação</th>
-        <th>Páginas</th>
+        <th>Capítulo</th>
+        <th>Página</th>
+        <th>Anotação</th>
+        <th>Data</th>
         <th>Ações</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="livro: ${livros}">
-        <td data-label="Id" th:text="${livro.id}"></td>
-        <td data-label="Imagem"><img th:src="${livro.imgUrl}" alt=""></td>
-        <td data-label="Título" th:text="${livro.titulo}"></td>
-        <td data-label="Autor" th:text="${livro.autor}"></td>
-        <td data-label="Editora" th:text="${livro.editora}"></td>
-        <td data-label="Publicação" th:text="${livro.anoPublicacao}"></td>
-        <td data-label="Páginas" th:text="${livro.numeroPaginas}"></td>
+    <tr th:each="anotacao: ${anotacoes}">
+        <td data-label="Id" th:text="${anotacao.id}"></td>
+        <td data-label="Capítulo" th:text="${anotacao.capitulo}"></td>
+        <td data-label="Página" th:text="${anotacao.pagina}"></td>
+        <td data-label="Anotação" th:text="${anotacao.minhaAnotacao}"></td>
+        <td data-label="Data" th:text="${anotacao.dataCadastro}"></td>
         <td>
-            <a th:href="@{/livros/ui/listar/{id}(id=${livro.id})}">Detalhes</a>
-            <a th:href="@{/livros/ui/alterar/{id}(id=${livro.id})}">Alterar</a>
-            <a th:href="@{/livros/ui/deletar/{id}(id=${livro.id})}">Deletar</a>
+            <a th:href="@{/anotacoes/ui/listar/{id}(id=${anotacao.id})}">Detalhes</a>
+            <a th:href="@{/anotacoes/alterar/{id}(id=${anotacao.id})}">Alterar</a>
+            <a th:href="@{/anotacoes/ui/deletar/{id}(id=${anotacao.id})}">Deletar</a>
         </td>
     </tr>
-    <tr th:if="${#lists.isEmpty(livros)}">
-        <td class="vazio">Nenhum livro cadastrado ainda.</td>
+    <tr th:if="${#lists.isEmpty(anotacoes)}">
+        <td class="vazio">Nenhuma anotação cadastrada ainda.</td>
     </tr>
     </tbody>
 </table>
