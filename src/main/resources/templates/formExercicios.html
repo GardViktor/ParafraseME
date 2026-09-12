@@ -85,7 +85,8 @@
         }
 
         input,
-        textarea {
+        textarea,
+        select {
             width: 100%;
             font-family: 'Press Start 2P', 'Courier New', monospace;
             font-size: 16px;
@@ -103,7 +104,8 @@
         }
 
         input:focus,
-        textarea:focus {
+        textarea:focus,
+        select:focus {
             outline: none;
             border-color: var(--gb-blue);
             background: #ffffff;
@@ -194,17 +196,53 @@
     </style>
 </head>
 <body>
+
 <h1>Adicionar Novo Exercício</h1>
-<!-- Contexto: todo exercício pertence a uma anotação. O anotacaoId chega pela URL
-     (ex: /exercicios/ui/adicionar/7) e o controller carrega a anotação pra exibir aqui. -->
-<p class="contexto-pai" th:if="${anotacao != null}">Anotação: <span th:text="${anotacao.capitulo}"></span></p>
+
+<p th:if="${anotacao != null}" class="contexto-pai">
+    Anotação: <span th:text="${anotacao.capitulo}"></span>
+</p>
+
 <div class="form-container">
+
     <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
-    <form th:if="${anotacao != null}"
-          th:action="@{/exercicios/ui/salvar/{anotacaoId}(anotacaoId=${anotacao.id})}"
-          th:object="${exercicio}" method="post">
+
+    <form th:action="@{/exercicios/ui/salvar}"
+          th:object="${exercicio}"
+          method="post">
+
+        <div th:if="${anotacao != null}">
+
+            <input type="hidden"
+                   name="anotacaoId"
+                   th:value="${anotacao.id}" />
+
+        </div>
+
+        <div th:if="${anotacao == null}">
+
+            <label for="anotacaoId">Anotação:</label>
+
+            <select id="anotacaoId"
+                    name="anotacaoId"
+                    required>
+
+                <option value="">Selecione uma anotação</option>
+
+                <option th:each="anotacaoItem : ${anotacoes}"
+                        th:value="${anotacaoItem.id}"
+                        th:text="${anotacaoItem.capitulo}">
+                </option>
+
+            </select>
+
+        </div>
+
         <label for="enunciado">Enunciado:</label>
-        <textarea id="enunciado" th:field="*{enunciado}" required></textarea>
+
+        <textarea id="enunciado"
+                  th:field="*{enunciado}"
+                  required></textarea>
 
         <div class="checkbox-linha">
             <input type="checkbox" id="resolvido" th:field="*{resolvido}" />
@@ -212,30 +250,26 @@
         </div>
 
         <label for="linkSolucao">Link da Solução:</label>
-        <input type="text" id="linkSolucao" th:field="*{linkSolucao}" />
+
+        <input type="text"
+               id="linkSolucao"
+               th:field="*{linkSolucao}" />
 
         <button type="submit">Cadastrar Exercício</button>
+
     </form>
 
-    <form th:if="${anotacao == null}"
-          th:action="@{/exercicios/ui/salvar}"
-          th:object="${exercicio}" method="post">
-        <label for="enunciado2">Enunciado:</label>
-        <textarea id="enunciado2" th:field="*{enunciado}" required></textarea>
+    <a th:if="${anotacao != null}"
+       th:href="@{/anotacoes/ui/listar/{id}(id=${anotacao.id})}">
+        Voltar para os detalhes da anotação
+    </a>
 
-        <div class="checkbox-linha">
-            <input type="checkbox" id="resolvido2" th:field="*{resolvido}" />
-            <label for="resolvido2">Resolvido</label>
-        </div>
+    <a th:if="${anotacao == null}"
+       th:href="@{/exercicios/ui/listar}">
+        Voltar para a lista de exercícios
+    </a>
 
-        <label for="linkSolucao2">Link da Solução:</label>
-        <input type="text" id="linkSolucao2" th:field="*{linkSolucao}" />
-
-        <button type="submit">Cadastrar Exercício</button>
-    </form>
-
-    <a th:if="${anotacao != null}" th:href="@{/anotacoes/ui/listar/{id}(id=${anotacao.id})}">Voltar para os detalhes da anotação</a>
-    <a th:if="${anotacao == null}" th:href="@{/exercicios/ui/listar}">Voltar para a lista de exercícios</a>
 </div>
+
 </body>
 </html>

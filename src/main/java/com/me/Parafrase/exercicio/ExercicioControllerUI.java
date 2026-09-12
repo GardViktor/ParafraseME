@@ -16,7 +16,9 @@ public class ExercicioControllerUI {
     private final ExercicioService exercicioService;
     private final AnotacaoService anotacaoService;
 
-    public ExercicioControllerUI(ExercicioService exercicioService, AnotacaoService anotacaoService) {
+    public ExercicioControllerUI(
+            ExercicioService exercicioService,
+            AnotacaoService anotacaoService) {
         this.exercicioService = exercicioService;
         this.anotacaoService = anotacaoService;
     }
@@ -29,19 +31,25 @@ public class ExercicioControllerUI {
     }
 
     @GetMapping("/listar/{id}")
-    public String listarExercicioID(@PathVariable Long id, Model model) {
+    public String listarExercicioID(
+            @PathVariable Long id,
+            Model model) {
+
         ExercicioDTO exercicioRead = exercicioService.listarExercicioID(id);
+
         if (exercicioRead != null) {
             model.addAttribute("exercicio", exercicioRead);
             return "detalhesExercicios";
-        } else {
-            model.addAttribute("mensagem", "Exercicio não encontrado");
-            return "redirect:/exercicios/ui/listar";
         }
+
+        model.addAttribute("mensagem", "Exercicio não encontrado");
+        return "redirect:/exercicios/ui/listar";
     }
 
     @GetMapping("/alterar/{id}")
-    public String abrirAlteracao(@PathVariable Long id, Model model) {
+    public String abrirAlteracao(
+            @PathVariable Long id,
+            Model model) {
 
         ExercicioDTO exercicio = exercicioService.listarExercicioID(id);
 
@@ -63,14 +71,11 @@ public class ExercicioControllerUI {
                 exercicioService.atualizarExercicio(id, exercicioDTO);
 
         if (exercicioAtualizado != null) {
-
             redirectAttributes.addFlashAttribute(
                     "mensagem",
                     "Exercicio alterado com sucesso!"
             );
-
         } else {
-
             redirectAttributes.addFlashAttribute(
                     "mensagem",
                     "Exercicio não encontrado!"
@@ -81,45 +86,58 @@ public class ExercicioControllerUI {
     }
 
     @GetMapping("/adicionar")
-    public String formExercicio(Model model) {
-        model.addAttribute("exercicio", new ExercicioDTO());
+    public String formExercicioSemAnotacao(Model model) {
+
+        List<AnotacaoDTO> anotacoes = anotacaoService.listarAnotacao();
+
+        ExercicioDTO exercicio = new ExercicioDTO();
+
+        model.addAttribute("anotacoes", anotacoes);
+        model.addAttribute("exercicio", exercicio);
+
         return "formExercicios";
     }
 
     @GetMapping("/adicionar/{anotacaoId}")
-    public String formExercicioComAnotacao(@PathVariable Long anotacaoId, Model model) {
+    public String formExercicioComAnotacao(
+            @PathVariable Long anotacaoId,
+            Model model) {
+
         AnotacaoDTO anotacao = anotacaoService.listarAnotacaoID(anotacaoId);
 
         if (anotacao == null) {
             return "redirect:/anotacoes/ui/listar";
         }
 
+        ExercicioDTO exercicio = new ExercicioDTO();
+
         model.addAttribute("anotacao", anotacao);
-        model.addAttribute("exercicio", new ExercicioDTO());
+        model.addAttribute("exercicio", exercicio);
+
         return "formExercicios";
     }
 
     @PostMapping("/salvar")
-    public String salvarExercicio(@ModelAttribute ExercicioDTO exercicio, RedirectAttributes redirectAttributes) {
-        exercicioService.criarExercicio(exercicio);
-        redirectAttributes.addFlashAttribute("mensagem", "Exercicio cadastrado com sucesso!");
-        return "redirect:/exercicios/ui/listar";
-    }
-
-    @PostMapping("/salvar/{anotacaoId}")
-    public String salvarExercicioComAnotacao(
-            @PathVariable Long anotacaoId,
+    public String salvarExercicio(
+            @RequestParam Long anotacaoId,
             @ModelAttribute ExercicioDTO exercicio,
             RedirectAttributes redirectAttributes) {
 
         exercicioService.criarExercicioComAnotacao(anotacaoId, exercicio);
-        redirectAttributes.addFlashAttribute("mensagem", "Exercicio cadastrado com sucesso!");
-        return "redirect:/anotacoes/ui/listar";
+
+        redirectAttributes.addFlashAttribute(
+                "mensagem",
+                "Exercicio cadastrado com sucesso!"
+        );
+
+        return "redirect:/exercicios/ui/listar";
     }
 
     @GetMapping("/deletar/{id}")
-    public String deletarExercicio(@PathVariable Long id, Model model) {
+    public String deletarExercicio(@PathVariable Long id) {
+
         exercicioService.deletarExercicio(id);
+
         return "redirect:/exercicios/ui/listar";
     }
 }

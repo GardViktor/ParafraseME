@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Livro</title>
+    <title>Editar Exercicio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -91,6 +91,21 @@
             background: #ffffff;
         }
 
+        .checkbox-linha {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .checkbox-linha input {
+            width: auto;
+        }
+
+        .checkbox-linha label {
+            margin: 0;
+        }
+
         button {
             display: block;
             width: 100%;
@@ -162,14 +177,13 @@
         <label for="enunciado">Enunciado:</label>
         <input type="text" id="enunciado" th:field="*{enunciado}" required />
 
-        <label for="resolvido">Status:</label>
-        <input type="text" id="resolvido" th:field="*{resolvido}" required />
+        <div class="checkbox-linha">
+            <input type="checkbox" id="resolvido" th:field="*{resolvido}" />
+            <label for="resolvido">Resolvido</label>
+        </div>
 
         <label for="linkSolucao">Solução:</label>
         <input type="text" id="linkSolucao" th:field="*{linkSolucao}" />
-
-        <label for="anotacoes">Anotação:</label>
-        <input type="text" id="anotacoes" th:field="*{anotacoes}" />
 
         <button type="submit">Salvar Alterações</button>
     </form>
@@ -177,4 +191,3 @@
 </div>
 </body>
 </html>
-
