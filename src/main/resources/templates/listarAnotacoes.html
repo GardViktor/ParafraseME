@@ -72,6 +72,33 @@
             box-shadow: none;
         }
 
+        .btn-menu {
+            display: inline-block;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            text-decoration: none;
+            color: var(--gb-panel);
+            background: var(--gb-blue);
+            border: 2px solid var(--gb-border-dark);
+            padding: 12px 18px;
+            border-radius: 2px;
+            box-shadow: 3px 3px 0 var(--gb-border-dark);
+            margin-top: 24px;
+            margin-bottom: 24px;
+            transition: transform 0.05s;
+        }
+
+        .btn-menu:hover {
+            background: var(--gb-red);
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0 var(--gb-border-dark);
+        }
+
+        .btn-menu:active {
+            transform: translate(3px, 3px);
+            box-shadow: none;
+        }
+
         /* Grid contínuo: thead/tbody/tr somem do layout (display: contents),
            sobrando só th/td como itens do mesmo grid, sempre alinhados. */
         table {
@@ -278,5 +305,6 @@
     </tr>
     </tbody>
 </table>
+<a class="btn-menu" th:href="@{/}">Voltar ao Menu</a>
 </body>
 </html>
