@@ -32,7 +32,7 @@ public class Anotacao {
     @ManyToOne
     @JoinColumn(name = "livro_id", nullable = false)
     private Livro livros;
-    @OneToMany(mappedBy = "anotacoes")
+    @OneToMany(mappedBy = "anotacoes", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Exercicio> exercicios;
 }

@@ -31,7 +31,7 @@ public class Livro {
     private Integer anoPublicacao;
     @Column(name = "qtd_paginas")
     private Integer numeroPaginas;
-    @OneToMany(mappedBy = "livros")
+    @OneToMany(mappedBy = "livros", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Anotacao> anotacoes;
 }
