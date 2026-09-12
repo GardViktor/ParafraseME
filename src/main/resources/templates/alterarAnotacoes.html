@@ -2,9 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Adicionar Novo Exercício</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <title>Editar Anotação</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -41,16 +39,8 @@
             font-size: 16px;
             letter-spacing: 2px;
             text-shadow: 3px 3px 0 var(--gb-border-dark);
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .contexto-pai {
-            color: var(--gb-yellow);
-            font-size: 9px;
-            text-align: center;
             margin-bottom: 24px;
-            text-shadow: 2px 2px 0 var(--gb-border-dark);
+            text-align: center;
         }
 
         .form-container {
@@ -88,7 +78,7 @@
         textarea {
             width: 100%;
             font-family: 'Press Start 2P', 'Courier New', monospace;
-            font-size: 16px;
+            font-size: 10px;
             padding: 10px 8px;
             border: 2px solid var(--gb-border-dark);
             border-radius: 2px;
@@ -107,21 +97,6 @@
             outline: none;
             border-color: var(--gb-blue);
             background: #ffffff;
-        }
-
-        .checkbox-linha {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 14px;
-        }
-
-        .checkbox-linha input {
-            width: auto;
-        }
-
-        .checkbox-linha label {
-            margin: 0;
         }
 
         button {
@@ -179,14 +154,6 @@
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 24px 12px;
-            }
-
-            h1 {
-                font-size: 13px;
-            }
-
             .form-container {
                 padding: 18px;
             }
@@ -194,48 +161,27 @@
     </style>
 </head>
 <body>
-<h1>Adicionar Novo Exercício</h1>
-<!-- Contexto: todo exercício pertence a uma anotação. O anotacaoId chega pela URL
-     (ex: /exercicios/ui/adicionar/7) e o controller carrega a anotação pra exibir aqui. -->
-<p class="contexto-pai" th:if="${anotacao != null}">Anotação: <span th:text="${anotacao.capitulo}"></span></p>
+<h1>Editar Anotação</h1>
 <div class="form-container">
     <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
-    <form th:if="${anotacao != null}"
-          th:action="@{/exercicios/ui/salvar/{anotacaoId}(anotacaoId=${anotacao.id})}"
-          th:object="${exercicio}" method="post">
-        <label for="enunciado">Enunciado:</label>
-        <textarea id="enunciado" th:field="*{enunciado}" required></textarea>
+    <form th:action="@{/anotacoes/ui/alterar/{id}(id=${anotacao.id})}" th:object="${anotacao}" method="post">
+        <input type="hidden" th:field="*{id}" />
 
-        <div class="checkbox-linha">
-            <input type="checkbox" id="resolvido" th:field="*{resolvido}" />
-            <label for="resolvido">Resolvido</label>
-        </div>
+        <label for="capitulo">Capítulo:</label>
+        <input type="text" id="capitulo" th:field="*{capitulo}" required />
 
-        <label for="linkSolucao">Link da Solução:</label>
-        <input type="text" id="linkSolucao" th:field="*{linkSolucao}" />
+        <label for="pagina">Página:</label>
+        <input type="number" id="pagina" th:field="*{pagina}" />
 
-        <button type="submit">Cadastrar Exercício</button>
+        <label for="minhaAnotacao">Anotação:</label>
+        <textarea id="minhaAnotacao" th:field="*{minhaAnotacao}" required></textarea>
+
+        <label for="dataCadastro">Data:</label>
+        <input type="date" id="dataCadastro" th:field="*{dataCadastro}" />
+
+        <button type="submit">Salvar Alterações</button>
     </form>
-
-    <form th:if="${anotacao == null}"
-          th:action="@{/exercicios/ui/salvar}"
-          th:object="${exercicio}" method="post">
-        <label for="enunciado2">Enunciado:</label>
-        <textarea id="enunciado2" th:field="*{enunciado}" required></textarea>
-
-        <div class="checkbox-linha">
-            <input type="checkbox" id="resolvido2" th:field="*{resolvido}" />
-            <label for="resolvido2">Resolvido</label>
-        </div>
-
-        <label for="linkSolucao2">Link da Solução:</label>
-        <input type="text" id="linkSolucao2" th:field="*{linkSolucao}" />
-
-        <button type="submit">Cadastrar Exercício</button>
-    </form>
-
-    <a th:if="${anotacao != null}" th:href="@{/anotacoes/ui/listar/{id}(id=${anotacao.id})}">Voltar para os detalhes da anotação</a>
-    <a th:if="${anotacao == null}" th:href="@{/exercicios/ui/listar}">Voltar para a lista de exercícios</a>
+    <a th:href="@{/anotacoes/ui/listar}">Voltar para a lista de anotações</a>
 </div>
 </body>
 </html>

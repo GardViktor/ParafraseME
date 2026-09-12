@@ -41,7 +41,7 @@ public class AnotacaoController {
 
     @PutMapping("/alterar/{id}")
     public ResponseEntity<?> alterarAnotacao(@PathVariable Long id, @RequestBody AnotacaoDTO anotacaoDTO) {
-        AnotacaoDTO anotacaoUpdate = anotacaoService.alterarAnotacao(id, anotacaoDTO);
+        AnotacaoDTO anotacaoUpdate = anotacaoService.atualizarAnotacao(id, anotacaoDTO);
         if (anotacaoUpdate != null) {
             return ResponseEntity.ok(anotacaoUpdate);
         } else {
