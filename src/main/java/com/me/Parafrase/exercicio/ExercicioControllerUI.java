@@ -120,6 +120,7 @@ public class ExercicioControllerUI {
     @PostMapping("/salvar")
     public String salvarExercicio(
             @RequestParam Long anotacaoId,
+            @RequestParam String origem,
             @ModelAttribute ExercicioDTO exercicio,
             RedirectAttributes redirectAttributes) {
 
@@ -129,6 +130,10 @@ public class ExercicioControllerUI {
                 "mensagem",
                 "Exercicio cadastrado com sucesso!"
         );
+
+        if ("anotacao".equals(origem)) {
+            return "redirect:/anotacoes/ui/listar/" + anotacaoId;
+        }
 
         return "redirect:/exercicios/ui/listar";
     }

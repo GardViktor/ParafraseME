@@ -212,30 +212,20 @@
           method="post">
 
         <div th:if="${anotacao != null}">
-
-            <input type="hidden"
-                   name="anotacaoId"
-                   th:value="${anotacao.id}" />
-
+            <input type="hidden" name="anotacaoId" th:value="${anotacao.id}" />
+            <input type="hidden" name="origem" value="anotacao" />
         </div>
 
         <div th:if="${anotacao == null}">
-
             <label for="anotacaoId">Anotação:</label>
-
-            <select id="anotacaoId"
-                    name="anotacaoId"
-                    required>
-
+            <select id="anotacaoId" name="anotacaoId" required>
                 <option value="">Selecione uma anotação</option>
-
                 <option th:each="anotacaoItem : ${anotacoes}"
                         th:value="${anotacaoItem.id}"
                         th:text="${anotacaoItem.capitulo}">
                 </option>
-
             </select>
-
+            <input type="hidden" name="origem" value="lista" />
         </div>
 
         <label for="enunciado">Enunciado:</label>

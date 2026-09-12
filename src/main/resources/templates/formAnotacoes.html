@@ -197,30 +197,20 @@
           method="post">
 
         <div th:if="${livro != null}">
-
-            <input type="hidden"
-                   name="livroId"
-                   th:value="${livro.id}" />
-
+            <input type="hidden" name="livroId" th:value="${livro.id}" />
+            <input type="hidden" name="origem" value="livro" />
         </div>
 
         <div th:if="${livro == null}">
-
             <label for="livroId">Livro:</label>
-
-            <select id="livroId"
-                    name="livroId"
-                    required>
-
+            <select id="livroId" name="livroId" required>
                 <option value="">Selecione um livro</option>
-
                 <option th:each="livroItem : ${livros}"
                         th:value="${livroItem.id}"
                         th:text="${livroItem.titulo}">
                 </option>
-
             </select>
-
+            <input type="hidden" name="origem" value="lista" />
         </div>
 
         <label for="capitulo">Capítulo:</label>

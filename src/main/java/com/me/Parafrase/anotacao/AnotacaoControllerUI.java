@@ -123,6 +123,7 @@ public class AnotacaoControllerUI {
     @PostMapping("/salvar")
     public String salvarAnotacao(
             @RequestParam Long livroId,
+            @RequestParam String origem,
             @ModelAttribute AnotacaoDTO anotacao,
             RedirectAttributes redirectAttributes) {
 
@@ -132,6 +133,10 @@ public class AnotacaoControllerUI {
                 "mensagem",
                 "Anotação cadastrada com sucesso!"
         );
+
+        if ("livro".equals(origem)) {
+            return "redirect:/livros/ui/listar/" + livroId;
+        }
 
         return "redirect:/anotacoes/ui/listar";
     }
